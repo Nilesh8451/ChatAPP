@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "6175500836",
+    "project_id": "datagridchat",
+    "storage_bucket": "datagridchat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6175500836:android:94c3cc6c769755b3f4c6b1",
+        "android_client_info": {
+          "package_name": "com.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6175500836-p07vfv810ogdgneb00cnmilp5bd4pnu3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Nx1IeZyqJmPvyLMG29Yg875548x5IVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6175500836-p07vfv810ogdgneb00cnmilp5bd4pnu3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
