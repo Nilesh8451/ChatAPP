@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>815217110844-soemnsv8t38j34f53h51u1gpd923mv5h.apps.googleusercontent.com</string>
+	<string>6175500836-keh1ikf1nabaahiob63epal9v5veodbm.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.815217110844-soemnsv8t38j34f53h51u1gpd923mv5h</string>
+	<string>com.googleusercontent.apps.6175500836-keh1ikf1nabaahiob63epal9v5veodbm</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC_UWPpcS4QbnC12FfUi0e8SRFk3UKOcCI</string>
+	<string>AIzaSyDLXm5TutKIvE5l-A3vtAc3RGNSIYccpho</string>
 	<key>GCM_SENDER_ID</key>
-	<string>815217110844</string>
+	<string>6175500836</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.reactjs.native.example.chatAPP</string>
 	<key>PROJECT_ID</key>
-	<string>chatapp-1e13e</string>
+	<string>datagridchat</string>
 	<key>STORAGE_BUCKET</key>
-	<string>chatapp-1e13e.appspot.com</string>
+	<string>datagridchat.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:815217110844:ios:21a1b75e55fb2a815fb839</string>
+	<string>1:6175500836:ios:2832cfb04304f71df4c6b1</string>
 </dict>
 </plist>

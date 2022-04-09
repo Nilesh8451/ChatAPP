@@ -8,18 +8,21 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 
-import {Container} from '../../components/container';
+import {Container} from '../../../components/container';
 import auth from '@react-native-firebase/auth';
 import Toast from 'react-native-simple-toast';
-import {loginDataFun} from '../../redux/action';
+import {loginDataFun} from '../../../redux/action';
 import {useDispatch, useSelector} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import AntIcon from 'react-native-vector-icons/AntDesign';
+import ENIcon from 'react-native-vector-icons/Entypo';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [showeye, setShoweye] = useState(false);
 
   const dispatch = useDispatch();
   // const infoOfUser = useSelector(state => state.userInfo.loginData);
@@ -69,38 +72,19 @@ const Login = ({navigation}) => {
       loading={loading}
       style={{
         flex: 1,
+        backgroundColor: 'rgba(255,255,255,0.5)',
       }}
       withKeyboard={true}>
-      <View
-        style={{
-          position: 'absolute',
-          flex: 1,
-          width: '100%',
-          height: '100%',
-        }}>
-        <Image
-          style={{width: '100%', height: '100%'}}
-          source={require('../../assets/images/pexels-cottonbro-7120126.jpg')}
-        />
-        <View
-          style={{
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            backgroundColor: 'rgba(0,0,0,0.6)',
-          }}></View>
-      </View>
       <KeyboardAwareScrollView>
         <SafeAreaView>
           <Text
             style={{
               fontSize: 40,
-              color: 'white',
+              color: 'black',
               marginTop: 20,
               marginLeft: 20,
-              fontFamily: 'Lobster-Regular',
             }}>
-            Login
+            ʟᴏɢɪɴ
           </Text>
           <View
             style={{
@@ -111,8 +95,8 @@ const Login = ({navigation}) => {
             <Text
               style={{
                 fontSize: 18,
-                color: 'white',
-                fontFamily: 'ZillaSlab-Medium',
+                color: 'black',
+                fontFamily: 'Lora-Medium',
               }}>
               Enter Email
             </Text>
@@ -120,7 +104,7 @@ const Login = ({navigation}) => {
             <View
               style={{
                 borderBottomWidth: 2,
-                borderBottomColor: '#E7E0C9',
+                borderBottomColor: 'rgba(0,0,0,0.4)',
                 marginVertical: 10,
                 marginTop: 15,
                 paddingBottom: 5,
@@ -129,20 +113,23 @@ const Login = ({navigation}) => {
                 value={username}
                 onChangeText={val => setUsername(val)}
                 style={{
-                  color: 'white',
+                  color: 'black',
                   fontSize: 18,
-                  fontFamily: 'ZillaSlab-Medium',
+                  fontFamily: 'Lora-Medium',
                 }}
-                placeholder="Email"
-                placeholderTextColor={'rgba(255,255,255,0.6)'}
+                placeholder="Your Email"
+                placeholderTextColor={'rgba(0,0,0,0.3)'}
               />
+              <View style={{position: 'absolute', right: 0}}>
+                <AntIcon name="user" size={20} color="black" />
+              </View>
             </View>
             <Text
               style={{
                 fontSize: 18,
-                color: 'white',
+                color: 'black',
                 marginTop: 20,
-                fontFamily: 'ZillaSlab-Medium',
+                fontFamily: 'Lora-Medium',
               }}>
               Enter Password
             </Text>
@@ -150,7 +137,7 @@ const Login = ({navigation}) => {
               style={{
                 borderBottomWidth: 2,
                 marginVertical: 10,
-                borderBottomColor: '#E7E0C9',
+                borderBottomColor: 'rgba(0,0,0,0.4)',
                 paddingBottom: 5,
                 marginTop: 15,
               }}>
@@ -158,14 +145,26 @@ const Login = ({navigation}) => {
                 value={password}
                 onChangeText={val => setPassword(val)}
                 style={{
-                  color: 'white',
+                  color: 'black',
                   fontSize: 18,
-                  fontFamily: 'ZillaSlab-Medium',
+                  fontFamily: 'Lora-Medium',
                 }}
-                secureTextEntry
+                secureTextEntry={!showeye}
                 placeholder="Password"
-                placeholderTextColor={'rgba(255,255,255,0.6)'}
+                placeholderTextColor={'rgba(0,0,0,0.3)'}
               />
+
+              <TouchableOpacity
+                style={{position: 'absolute', right: 0}}
+                onPress={() => {
+                  setShoweye(prevState => !prevState);
+                }}>
+                {showeye ? (
+                  <ENIcon name="eye" size={20} color="black" />
+                ) : (
+                  <ENIcon name="eye-with-line" size={20} color="black" />
+                )}
+              </TouchableOpacity>
             </View>
             <TouchableOpacity
               onPress={() => {
@@ -173,7 +172,7 @@ const Login = ({navigation}) => {
                 loginUser();
               }}
               style={{
-                backgroundColor: '#FDEFEF',
+                backgroundColor: '#6FB2D2',
                 alignItems: 'center',
                 borderRadius: 50,
                 marginVertical: 30,
@@ -185,7 +184,7 @@ const Login = ({navigation}) => {
                   color: 'black',
                   fontSize: 18,
                   fontWeight: 'bold',
-                  fontFamily: 'ZillaSlab-Bold',
+                  fontFamily: 'Lora-Bold',
                 }}>
                 Login
               </Text>
@@ -199,10 +198,10 @@ const Login = ({navigation}) => {
               }}>
               <Text
                 style={{
-                  color: '#F4DFD0',
+                  color: 'black',
                   fontSize: 18,
                   fontWeight: 'bold',
-                  fontFamily: 'ZillaSlab-Medium',
+                  fontFamily: 'Lora-Medium',
                 }}>
                 Not a member register here
               </Text>

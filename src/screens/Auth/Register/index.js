@@ -2,34 +2,32 @@ import {
   View,
   Text,
   TextInput,
-  Image,
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
 import React, {useState} from 'react';
-import {Container} from '../../components/container';
+import {Container} from '../../../components/container';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import Toast from 'react-native-simple-toast';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import database from '@react-native-firebase/database';
+import ENIcon from 'react-native-vector-icons/Entypo';
 
 const Register = ({navigation}) => {
   const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showeye, setShoweye] = useState(false);
 
   const registerUser = () => {
     try {
       setLoading(true);
 
       auth()
-        .createUserWithEmailAndPassword(username, password)
+        .createUserWithEmailAndPassword(email, password)
         .then(user => {
-          console.log('User account created & signed in!', user);
-
-          Toast.show('User is Created Successfully', Toast.SHORT, [
+          Toast.show('User Created Successfully', Toast.SHORT, [
             'RCTModalHostViewController',
           ]);
 
@@ -85,37 +83,17 @@ const Register = ({navigation}) => {
       style={{
         flex: 1,
       }}>
-      <View
-        style={{
-          position: 'absolute',
-          flex: 1,
-
-          width: '100%',
-          height: '100%',
-        }}>
-        <Image
-          style={{width: '100%', height: '100%'}}
-          source={require('../../assets/images/pexels-cottonbro-7120126.jpg')}
-        />
-        <View
-          style={{
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            backgroundColor: 'rgba(0,0,0,0.6)',
-          }}></View>
-      </View>
       <KeyboardAwareScrollView>
         <SafeAreaView>
           <Text
             style={{
               fontSize: 40,
-              color: 'white',
+              color: 'black',
               marginTop: 20,
               marginLeft: 20,
-              fontFamily: 'Lobster-Regular',
+              fontFamily: 'Lora-Medium',
             }}>
-            Register
+            ʀᴇɢɪꜱᴛᴇʀ
           </Text>
 
           <View
@@ -127,8 +105,8 @@ const Register = ({navigation}) => {
             <Text
               style={{
                 fontSize: 18,
-                color: 'white',
-                fontFamily: 'ZillaSlab-Medium',
+                color: 'black',
+                fontFamily: 'Lora-Medium',
               }}>
               Enter Name
             </Text>
@@ -136,7 +114,7 @@ const Register = ({navigation}) => {
             <View
               style={{
                 borderBottomWidth: 2,
-                borderBottomColor: '#E7E0C9',
+                borderBottomColor: 'rgba(0,0,0,0.4)',
                 marginVertical: 10,
                 marginTop: 15,
                 paddingBottom: 5,
@@ -145,21 +123,21 @@ const Register = ({navigation}) => {
                 value={name}
                 onChangeText={val => setName(val)}
                 style={{
-                  color: 'white',
+                  color: 'black',
                   fontSize: 18,
-                  fontFamily: 'ZillaSlab-Medium',
+                  fontFamily: 'Lora-Medium',
                 }}
+                placeholderTextColor={'rgba(0,0,0,0.3)'}
                 placeholder="Your Name"
-                placeholderTextColor={'rgba(255,255,255,0.6)'}
               />
             </View>
 
             <Text
               style={{
                 fontSize: 18,
-                color: 'white',
+                color: 'black',
                 marginTop: 20,
-                fontFamily: 'ZillaSlab-Medium',
+                fontFamily: 'Lora-Medium',
               }}>
               Enter Email
             </Text>
@@ -167,28 +145,29 @@ const Register = ({navigation}) => {
             <View
               style={{
                 borderBottomWidth: 2,
-                borderBottomColor: '#E7E0C9',
+                borderBottomColor: 'rgba(0,0,0,0.4)',
                 marginVertical: 10,
                 marginTop: 15,
                 paddingBottom: 5,
               }}>
               <TextInput
-                value={username}
-                onChangeText={val => setUsername(val)}
+                value={email}
+                onChangeText={val => setemail(val)}
                 style={{
-                  color: 'white',
+                  color: 'black',
                   fontSize: 18,
-                  fontFamily: 'ZillaSlab-Medium',
+                  fontFamily: 'Lora-Medium',
                 }}
                 placeholder="Email"
-                placeholderTextColor={'rgba(255,255,255,0.6)'}
+                placeholderTextColor={'rgba(0,0,0,0.3)'}
               />
             </View>
             <Text
               style={{
                 fontSize: 18,
-                color: 'white',
-                fontFamily: 'ZillaSlab-Medium',
+                color: 'black',
+                fontFamily: 'Lora-Medium',
+
                 marginTop: 20,
               }}>
               Enter Password
@@ -197,30 +176,42 @@ const Register = ({navigation}) => {
               style={{
                 borderBottomWidth: 2,
                 marginVertical: 10,
-                borderBottomColor: '#E7E0C9',
+                borderBottomColor: 'rgba(0,0,0,0.4)',
                 paddingBottom: 5,
                 marginTop: 15,
               }}>
               <TextInput
                 value={password}
                 onChangeText={val => setPassword(val)}
+                secureTextEntry={!showeye}
                 style={{
-                  color: 'white',
+                  color: 'black',
                   fontSize: 18,
-                  fontFamily: 'ZillaSlab-Medium',
+                  fontFamily: 'Lora-Medium',
                 }}
                 placeholder="Password"
-                placeholderTextColor={'rgba(255,255,255,0.6)'}
+                placeholderTextColor={'rgba(0,0,0,0.3)'}
               />
+
+              <TouchableOpacity
+                style={{position: 'absolute', right: 0}}
+                onPress={() => {
+                  setShoweye(prevState => !prevState);
+                }}>
+                {showeye ? (
+                  <ENIcon name="eye" size={20} color="black" />
+                ) : (
+                  <ENIcon name="eye-with-line" size={20} color="black" />
+                )}
+              </TouchableOpacity>
             </View>
 
             <TouchableOpacity
               onPress={() => {
-                // navigation.navigate('Login');
                 registerUser();
               }}
               style={{
-                backgroundColor: '#FDEFEF',
+                backgroundColor: '#6FB2D2',
                 alignItems: 'center',
                 borderRadius: 50,
                 marginVertical: 30,
@@ -232,7 +223,7 @@ const Register = ({navigation}) => {
                   color: 'black',
                   fontSize: 18,
                   fontWeight: 'bold',
-                  fontFamily: 'ZillaSlab-Bold',
+                  fontFamily: 'Lora-Bold',
                 }}>
                 Register
               </Text>
@@ -246,10 +237,10 @@ const Register = ({navigation}) => {
               }}>
               <Text
                 style={{
-                  color: '#F4DFD0',
+                  color: 'black',
                   fontSize: 18,
                   fontWeight: 'bold',
-                  fontFamily: 'ZillaSlab-Medium',
+                  fontFamily: 'Lora-Medium',
                 }}>
                 Already have an account, login
               </Text>

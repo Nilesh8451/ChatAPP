@@ -9,15 +9,11 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Container} from '../../components/container';
-import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import Toast from 'react-native-simple-toast';
 import {useDispatch, useSelector} from 'react-redux';
 import database from '@react-native-firebase/database';
-import {useFocusEffect} from '@react-navigation/native';
 import {removeUserFun} from '../../redux/action';
-
-let listner = '';
 
 const Home = ({navigation, route}) => {
   const [loading, setLoading] = useState(false);
@@ -28,7 +24,7 @@ const Home = ({navigation, route}) => {
 
   const getUsersList = async () => {
     try {
-      listner = database()
+      database()
         .ref('/Users')
         .on('value', snapshot => {
           console.log('Snapshot', snapshot);
@@ -67,12 +63,6 @@ const Home = ({navigation, route}) => {
     }
   };
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     getUsersList();
-  //   }, []),
-  // );
-
   useEffect(() => {
     getUsersList();
   }, []);
@@ -105,9 +95,9 @@ const Home = ({navigation, route}) => {
           }}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
-              style={{width: 50, height: 50, borderRadius: 50, marginRight: 8}}
+              style={{width: 40, height: 40, borderRadius: 50, marginRight: 8}}
               source={{
-                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdeISxwuZFqn8vs5k6d000EhssO8_edPRKf8W3NUwevXrh-s5FPwLQk2GPZywaYjRhZJ8&usqp=CAU',
+                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlR3hMw_3daUL3Uhr5Y3uJh_kMaYzyqQhhPA&usqp=CAU',
               }}
             />
             <Text
@@ -115,7 +105,7 @@ const Home = ({navigation, route}) => {
                 fontSize: 19,
                 color: 'black',
                 fontWeight: 'bold',
-                fontFamily: 'ZillaSlab-Medium',
+                fontFamily: 'Lora-Medium',
               }}>
               {userName}
             </Text>
@@ -125,32 +115,18 @@ const Home = ({navigation, route}) => {
             onPress={() => {
               logoutUser();
             }}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: '#EF6D6D',
-                fontWeight: 'bold',
-                fontFamily: 'ZillaSlab-Medium',
-              }}>
-              Logout
-            </Text>
+            <Image
+              resizeMode="contain"
+              style={{width: 40, height: 40, borderRadius: 50, marginRight: 0}}
+              source={require('../../assets/images/logout.webp')}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.titleView}>
-          <Text style={{...styles.titleColor, fontFamily: 'ZillaSlab-Bold'}}>
-            Contact List
+          <Text style={{...styles.titleColor, fontFamily: 'Lora-Bold'}}>
+            List Of Contacts ({users.length})
           </Text>
-          {/* <TouchableOpacity
-            onPress={() => {
-              getUsersList();
-            }}>
-            <Image
-              source={require('../../assets/images/refresh.png')}
-              style={{width: 35, height: 35}}
-            />
-          </TouchableOpacity> */}
         </View>
-        {console.log('users___', users)}
         <FlatList
           showsVerticalScrollIndicator={false}
           bounces={false}
@@ -178,7 +154,7 @@ const Home = ({navigation, route}) => {
                       ...styles.leftText,
                       textTransform: 'uppercase',
                       color: 'black',
-                      fontFamily: 'ZillaSlab-Medium',
+                      fontFamily: 'Lora-Medium',
                     }}>
                     {item?.name?.slice(0, 1)}
                   </Text>
@@ -189,34 +165,11 @@ const Home = ({navigation, route}) => {
                       ...styles.nameText,
                       textTransform: 'capitalize',
                       color: 'black',
-                      fontFamily: 'ZillaSlab-Medium',
+                      fontFamily: 'Lora-Medium',
                     }}>
-                    {item.name}
+                    {item.name} {item.uid == infoOfUser?.uid ? '(YOU)' : null}
                   </Text>
                 </View>
-
-                {item.uid == infoOfUser?.uid ? (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      right: 10,
-                      width: 35,
-                      height: 30,
-                      borderRadius: 25,
-                      borderWidth: 1,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor: 'white',
-                      fontFamily: 'ZillaSlab-Medium',
-                    }}>
-                    <Text
-                      style={{
-                        color: 'black',
-                      }}>
-                      Me
-                    </Text>
-                  </View>
-                ) : null}
               </TouchableOpacity>
             );
           }}
@@ -236,7 +189,6 @@ const styles = StyleSheet.create({
   titleView: {
     paddingHorizontal: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   titleColor: {
@@ -246,8 +198,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   contactView: {
-    backgroundColor: '#A2D2FF',
-    marginHorizontal: 5,
+    backgroundColor: '#6FB2D2',
+    marginHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 5,

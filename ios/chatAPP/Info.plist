@@ -58,6 +58,26 @@
 		<string>ZillaSlab-Regular.ttf</string>
 		<string>ZillaSlab-Bold.ttf</string>
 		<string>ZillaSlab-Medium.ttf</string>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Fontisto.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
+		<string>Lora-Bold.ttf</string>
+		<string>Lora-Medium.ttf</string>
+		<string>Lora-Regular.ttf</string>
+		<string>Lora-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

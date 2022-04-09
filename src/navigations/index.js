@@ -1,38 +1,50 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Chat from '../screens/Chat';
-import Login from '../screens/Login';
-import Register from '../screens/Register';
+import Login from '../screens/Auth/Login';
+import Register from '../screens/Auth/Register';
+import {useSelector} from 'react-redux';
 
 const Stack = createStackNavigator();
 
 const index = () => {
+  const infoOfUser = useSelector(state => state.userInfo.loginData);
+
+  console.log('infoOfUser', infoOfUser);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Chat"
-          component={Chat}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Register"
-          component={Register}
-          options={{headerShown: false}}
-        />
+        {infoOfUser?.uid ? (
+          <>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Chat"
+              component={Chat}
+              options={{headerShown: false}}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={{headerShown: false}}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
