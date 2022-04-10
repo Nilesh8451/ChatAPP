@@ -27,31 +27,21 @@ const Home = ({navigation, route}) => {
       database()
         .ref('/Users')
         .on('value', snapshot => {
-          console.log('Snapshot', snapshot);
           let res = snapshot?.val?.();
-          console.log('res', res);
 
           if (res !== null) {
-            console.log(res);
-            console.log(Object.values(res));
-
             let arr = [];
 
             for (let i in res) {
-              console.log(res[i]);
-
               arr.push({
                 ...res[i],
                 databaseId: i,
               });
             }
 
-            console.log('______', arr);
-
             arr = arr.sort((a, b) => a?.name?.localeCompare(b.name));
 
             setUsers(arr);
-
             setLoading(false);
           }
 
@@ -85,14 +75,7 @@ const Home = ({navigation, route}) => {
   return (
     <Container style={styles.container} loading={loading}>
       <SafeAreaView>
-        <View
-          style={{
-            flexDirection: 'row',
-            marginVertical: 10,
-            paddingHorizontal: 10,
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
+        <View style={styles.header}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               style={{width: 40, height: 40, borderRadius: 50, marginRight: 8}}
@@ -100,15 +83,7 @@ const Home = ({navigation, route}) => {
                 uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlR3hMw_3daUL3Uhr5Y3uJh_kMaYzyqQhhPA&usqp=CAU',
               }}
             />
-            <Text
-              style={{
-                fontSize: 19,
-                color: 'black',
-                fontWeight: 'bold',
-                fontFamily: 'Lora-Medium',
-              }}>
-              {userName}
-            </Text>
+            <Text style={styles.username}>{userName}</Text>
           </View>
           <TouchableOpacity
             activeOpacity={0.9}
@@ -181,10 +156,20 @@ const Home = ({navigation, route}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  username: {
+    fontSize: 19,
+    color: 'black',
+    fontWeight: 'bold',
+    fontFamily: 'Lora-Medium',
   },
   titleView: {
     paddingHorizontal: 10,

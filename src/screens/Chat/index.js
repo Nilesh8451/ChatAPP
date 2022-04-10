@@ -6,16 +6,15 @@ import {
   TouchableOpacity,
   SafeAreaView,
   FlatList,
+  StyleSheet,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Container} from '../../components/container';
 import database from '@react-native-firebase/database';
-import firestore from '@react-native-firebase/firestore';
 import IIcon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
 const ChatScreen = ({route, navigation}) => {
-  console.log('r........', route);
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true);
@@ -38,13 +37,10 @@ const ChatScreen = ({route, navigation}) => {
             let data = Object.values(res);
 
             data = data.sort(function (a, b) {
-              // Turn your strings into dates, and then subtract them
-              // to get a value that is either negative, positive, or zero.
               return new Date(b.time) - new Date(a.time);
             });
 
             if (messageList.length != data.length) {
-              console.log('Called in if.............');
               setMessageList(Object.values(data));
             }
 
@@ -82,19 +78,7 @@ const ChatScreen = ({route, navigation}) => {
             overflow: 'hidden',
             paddingBottom: 5,
           }}>
-          <View
-            style={{
-              paddingHorizontal: 10,
-              backgroundColor: '#fff',
-              flexDirection: 'row',
-              alignItems: 'center',
-              shadowColor: '#000',
-              paddingVertical: 10,
-              shadowOffset: {width: 1, height: 1},
-              shadowOpacity: 0.4,
-              shadowRadius: 3,
-              elevation: 5,
-            }}>
+          <View style={styles.header}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Image
                 style={{width: 30, height: 30, marginRight: 5}}
@@ -107,15 +91,7 @@ const ChatScreen = ({route, navigation}) => {
                 uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlR3hMw_3daUL3Uhr5Y3uJh_kMaYzyqQhhPA&usqp=CAU',
               }}
             />
-            <Text
-              style={{
-                color: 'black',
-                fontWeight: 'bold',
-                fontSize: 18,
-                fontFamily: 'Lora-Bold',
-              }}>
-              {route.params.name}
-            </Text>
+            <Text style={styles.receiverName}>{route.params.name}</Text>
           </View>
         </View>
 
@@ -123,12 +99,8 @@ const ChatScreen = ({route, navigation}) => {
           <View style={{flex: 1}}>
             <Text
               style={{
-                fontSize: 18,
-                fontFamily: 'Lora-Medium',
-                textAlign: 'center',
                 marginTop: 50,
-                paddingHorizontal: 20,
-                color: 'black',
+                ...styles.noChatText,
               }}>
               No Chat history available
             </Text>
@@ -143,12 +115,8 @@ const ChatScreen = ({route, navigation}) => {
 
             <Text
               style={{
-                fontSize: 18,
-                fontFamily: 'Lora-Medium',
-                textAlign: 'center',
                 marginTop: 30,
-                paddingHorizontal: 20,
-                color: 'black',
+                ...styles.noChatText,
               }}>
               Start Sending Messages.....
             </Text>
@@ -177,10 +145,7 @@ const ChatScreen = ({route, navigation}) => {
                     <Text
                       style={{
                         alignSelf: 'flex-end',
-                        fontSize: 10,
-                        marginBottom: 5,
-                        color: 'black',
-                        fontFamily: 'Lora-Medium',
+                        ...styles.messageTime,
                       }}>
                       {moment(new Date(item.time)).format('h:mm a')}
                     </Text>
@@ -190,30 +155,13 @@ const ChatScreen = ({route, navigation}) => {
                         flexDirection: 'row',
                         justifyContent: 'flex-end',
                       }}>
-                      {/* <Image
-                        style={{width: 30, height: 30, borderRadius: 50}}
-                        source={{
-                          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBeJIaj90AxSdQ4kugN7RK9TPBhiMcFKiiuXZ6FNw4Sj5mZ8xvPfARHTlsOyerqs8tLS4&usqp=CAU',
-                        }}
-                      /> */}
-
                       <View
                         style={{
                           backgroundColor: '#C1F8CF',
                           width: 200,
                           borderRadius: 5,
-                          justifyContent: 'center',
                         }}>
-                        <Text
-                          style={{
-                            color: 'black',
-                            paddingHorizontal: 10,
-                            paddingVertical: 5,
-                            fontFamily: 'Lora-Medium',
-                            fontSize: 15,
-                          }}>
-                          {item.message}
-                        </Text>
+                        <Text style={styles.messageText}>{item.message}</Text>
                       </View>
                     </View>
                   </View>
@@ -232,12 +180,8 @@ const ChatScreen = ({route, navigation}) => {
                   <View style={{paddingHorizontal: 10, marginVertical: 10}}>
                     <Text
                       style={{
-                        // alignSelf: 'flex-start',
                         left: 165,
-                        fontSize: 10,
-                        marginBottom: 5,
-                        color: 'black',
-                        fontFamily: 'Lora-Medium',
+                        ...styles.messageTime,
                       }}>
                       {moment(new Date(item.time)).format('h:mm a')}
                     </Text>
@@ -246,31 +190,13 @@ const ChatScreen = ({route, navigation}) => {
                       style={{
                         flexDirection: 'row',
                       }}>
-                      {/* <Image
-                        style={{width: 30, height: 30, borderRadius: 50}}
-                        source={{
-                          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2-lk-RYREmhV89n8yLwXTuOW2wkBMi_RLTg&usqp=CAU',
-                        }}
-                      /> */}
-
                       <View
                         style={{
                           backgroundColor: '#D8D2CB',
                           width: 200,
                           borderRadius: 5,
                         }}>
-                        <Text
-                          style={{
-                            color: 'black',
-                            paddingHorizontal: 10,
-                            paddingVertical: 5,
-                            fontFamily: 'Lora-Medium',
-
-                            color: 'black',
-                            fontSize: 15,
-                          }}>
-                          {item.message}
-                        </Text>
+                        <Text style={styles.messageText}>{item.message}</Text>
                       </View>
                     </View>
                   </View>
@@ -291,15 +217,7 @@ const ChatScreen = ({route, navigation}) => {
             }}>
             <TextInput
               onSubmitEditing={() => sendMessage()}
-              style={{
-                borderWidth: 1,
-                borderRadius: 17,
-                flex: 1,
-                height: 40,
-                color: 'black',
-                paddingHorizontal: 10,
-                fontFamily: 'Lora-Medium',
-              }}
+              style={styles.sendInput}
               value={message}
               onChangeText={val => setMessage(val)}
               placeholder="Type Something..."
@@ -310,16 +228,7 @@ const ChatScreen = ({route, navigation}) => {
               onPress={() => {
                 sendMessage();
               }}
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#6FB2D2',
-                // width: '28%',
-                marginLeft: 5,
-                borderRadius: 17,
-                height: 40,
-                width: 45,
-              }}>
+              style={styles.sendButton}>
               <IIcon name="send" size={20} color="white" />
             </TouchableOpacity>
           </View>
@@ -328,5 +237,64 @@ const ChatScreen = ({route, navigation}) => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    paddingHorizontal: 10,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    paddingVertical: 10,
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    elevation: 5,
+  },
+  sendButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#6FB2D2',
+    marginLeft: 5,
+    borderRadius: 17,
+    height: 40,
+    width: 45,
+  },
+  sendInput: {
+    borderWidth: 1,
+    borderRadius: 17,
+    flex: 1,
+    height: 40,
+    color: 'black',
+    paddingHorizontal: 10,
+    fontFamily: 'Lora-Medium',
+  },
+  messageText: {
+    color: 'black',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    fontFamily: 'Lora-Medium',
+    fontSize: 15,
+  },
+  messageTime: {
+    fontSize: 10,
+    marginBottom: 5,
+    color: 'black',
+    fontFamily: 'Lora-Medium',
+  },
+  receiverName: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: 'Lora-Bold',
+  },
+  noChatText: {
+    fontSize: 18,
+    fontFamily: 'Lora-Medium',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    color: 'black',
+  },
+});
 
 export default ChatScreen;

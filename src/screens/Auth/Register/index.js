@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  StyleSheet,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Container} from '../../../components/container';
@@ -85,48 +86,16 @@ const Register = ({navigation}) => {
       }}>
       <KeyboardAwareScrollView>
         <SafeAreaView>
-          <Text
-            style={{
-              fontSize: 40,
-              color: 'black',
-              marginTop: 20,
-              marginLeft: 20,
-              fontFamily: 'Lora-Medium',
-            }}>
-            ʀᴇɢɪꜱᴛᴇʀ
-          </Text>
+          <Text style={styles.title}>ʀᴇɢɪꜱᴛᴇʀ ᴛᴏ ᴍʏᴄʜᴀᴛ</Text>
 
-          <View
-            style={{
-              marginVertical: 10,
-              marginTop: 130,
-              marginHorizontal: 20,
-            }}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: 'black',
-                fontFamily: 'Lora-Medium',
-              }}>
-              Enter Name
-            </Text>
+          <View style={styles.formContainer}>
+            <Text style={styles.inputLabel}>Enter Name</Text>
 
-            <View
-              style={{
-                borderBottomWidth: 2,
-                borderBottomColor: 'rgba(0,0,0,0.4)',
-                marginVertical: 10,
-                marginTop: 15,
-                paddingBottom: 5,
-              }}>
+            <View style={styles.inputContainer}>
               <TextInput
                 value={name}
                 onChangeText={val => setName(val)}
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  fontFamily: 'Lora-Medium',
-                }}
+                style={styles.inputTextStyle}
                 placeholderTextColor={'rgba(0,0,0,0.3)'}
                 placeholder="Your Name"
               />
@@ -134,61 +103,34 @@ const Register = ({navigation}) => {
 
             <Text
               style={{
-                fontSize: 18,
-                color: 'black',
+                ...styles.inputLabel,
                 marginTop: 20,
-                fontFamily: 'Lora-Medium',
               }}>
               Enter Email
             </Text>
 
-            <View
-              style={{
-                borderBottomWidth: 2,
-                borderBottomColor: 'rgba(0,0,0,0.4)',
-                marginVertical: 10,
-                marginTop: 15,
-                paddingBottom: 5,
-              }}>
+            <View style={styles.inputContainer}>
               <TextInput
                 value={email}
                 onChangeText={val => setemail(val)}
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  fontFamily: 'Lora-Medium',
-                }}
+                style={styles.inputTextStyle}
                 placeholder="Email"
                 placeholderTextColor={'rgba(0,0,0,0.3)'}
               />
             </View>
             <Text
               style={{
-                fontSize: 18,
-                color: 'black',
-                fontFamily: 'Lora-Medium',
-
+                ...styles.inputLabel,
                 marginTop: 20,
               }}>
               Enter Password
             </Text>
-            <View
-              style={{
-                borderBottomWidth: 2,
-                marginVertical: 10,
-                borderBottomColor: 'rgba(0,0,0,0.4)',
-                paddingBottom: 5,
-                marginTop: 15,
-              }}>
+            <View style={styles.inputContainer}>
               <TextInput
                 value={password}
                 onChangeText={val => setPassword(val)}
                 secureTextEntry={!showeye}
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  fontFamily: 'Lora-Medium',
-                }}
+                style={styles.inputTextStyle}
                 placeholder="Password"
                 placeholderTextColor={'rgba(0,0,0,0.3)'}
               />
@@ -210,23 +152,8 @@ const Register = ({navigation}) => {
               onPress={() => {
                 registerUser();
               }}
-              style={{
-                backgroundColor: '#6FB2D2',
-                alignItems: 'center',
-                borderRadius: 50,
-                marginVertical: 30,
-                paddingVertical: 10,
-                width: '50%',
-              }}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                  fontFamily: 'Lora-Bold',
-                }}>
-                Register
-              </Text>
+              style={styles.button}>
+              <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -235,14 +162,8 @@ const Register = ({navigation}) => {
               style={{
                 marginVertical: 10,
               }}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                  fontFamily: 'Lora-Medium',
-                }}>
-                Already have an account, login
+              <Text style={styles.loginText}>
+                Have an account, login here...
               </Text>
             </TouchableOpacity>
           </View>
@@ -251,5 +172,58 @@ const Register = ({navigation}) => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 38,
+    color: 'black',
+    marginTop: 20,
+    marginLeft: 20,
+    fontFamily: 'Lora-Medium',
+  },
+
+  formContainer: {
+    marginVertical: 10,
+    marginTop: 130,
+    marginHorizontal: 20,
+  },
+  inputLabel: {
+    fontSize: 18,
+    color: 'black',
+    fontFamily: 'Lora-Medium',
+  },
+  inputContainer: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'rgba(0,0,0,0.4)',
+    marginVertical: 10,
+    marginTop: 15,
+    paddingBottom: 5,
+  },
+  button: {
+    backgroundColor: '#6FB2D2',
+    alignItems: 'center',
+    borderRadius: 50,
+    marginVertical: 30,
+    paddingVertical: 10,
+    width: '50%',
+  },
+  buttonText: {
+    color: 'black',
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'Lora-Bold',
+  },
+  loginText: {
+    color: 'blue',
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'Lora-Medium',
+  },
+  inputTextStyle: {
+    color: 'black',
+    fontSize: 18,
+    fontFamily: 'Lora-Medium',
+  },
+});
 
 export default Register;
